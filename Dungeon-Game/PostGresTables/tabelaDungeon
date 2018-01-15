@@ -1,0 +1,40 @@
+﻿INSERT INTO HISTORIADUNGEON VALUES
+(1, 'Você está em um lugar escuro e quente. Ao fundo é possível ouvir música alta e vuvuzelas.');
+INSERT INTO HISTORIADUNGEON VALUES
+(2, 'Você está em um ambiente quente e úmido, cercado por casas e templos de aparência rica e antiga.');
+INSERT INTO HISTORIADUNGEON VALUES
+(3, 'Chuva intensa, escuridão e entre lápides um vulto sinistro vindo em sua direção.');
+INSERT INTO HISTORIADUNGEON VALUES
+(4, 'Esse é o local mais belo e perigoso que você já esteve. É possível ouvir um infindável número de criaturas ao fundo, todas passando um sentimento de majestade e morte.');
+INSERT INTO HISTORIADUNGEON VALUES
+(5, 'Vindo em sua direção, o Cavaleiro Negro, ao som da gaite de fole.');
+INSERT INTO HISTORIADUNGEON VALUES
+(6, 'Você está em um terrível lugar cercado por água e imundície, algo que saiu do seu pior pesadelo.');
+
+DROP TABLE HISTORIADUNGEON
+DROP TABLE PERSONAGEM
+DROP TABLE ITEM
+
+SELECT * FROM PERSONAGEM
+SELECT * FROM HISTORIADUNGEON
+SELECT * FROM ITEM
+
+CREATE TABLE HISTORIADUNGEON
+(COD INTEGER,
+ HISTORIA VARCHAR(170) NOT NULL,
+ PRIMARY KEY (COD)
+ );
+
+CREATE TABLE PERSONAGEM
+(NOME VARCHAR(20),
+CLASSE VARCHAR(20),
+VIDA INTEGER,
+ULTDUN INTEGER
+);
+
+CREATE TABLE ITEM
+(NOME VARCHAR(50),
+DESCRICAO VARCHAR(50),
+TIPO INTEGER,
+POWER INTEGER
+);

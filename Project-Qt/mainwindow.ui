@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>274</width>
+    <height>271</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>271</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Escolha uma das opções abaixo:</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>60</y>
+      <width>118</width>
+      <height>143</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>Registrar Personagem</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="text">
+          <string>Abrir um site</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_3">
+         <property name="text">
+          <string>Visualizar uma imagem</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_4">
+         <property name="text">
+          <string>Data Atual</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_5">
+       <property name="text">
+        <string>Sair</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>274</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFerramentas">
+    <property name="title">
+     <string>Ferramentas</string>
+    </property>
+    <addaction name="actionRegistrar_Personagem"/>
+    <addaction name="actionAbrir_Site"/>
+    <addaction name="actionVisualizar_Imagem"/>
+    <addaction name="actionData_Atual"/>
+    <addaction name="separator"/>
+    <addaction name="actionSair"/>
+   </widget>
+   <addaction name="menuFerramentas"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionRegistrar_Personagem"/>
+   <addaction name="actionAbrir_Site"/>
+   <addaction name="actionVisualizar_Imagem"/>
+   <addaction name="actionData_Atual"/>
+   <addaction name="actionSair"/>
+  </widget>
+  <action name="actionRegistrar_Personagem">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icon/1470509417_SEO_planchette_questionnaire.png</normaloff>:/icon/1470509417_SEO_planchette_questionnaire.png</iconset>
+   </property>
+   <property name="text">
+    <string>Registrar Personagem</string>
+   </property>
+  </action>
+  <action name="actionAbrir_Site">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icon/1470509430_web.png</normaloff>:/icon/1470509430_web.png</iconset>
+   </property>
+   <property name="text">
+    <string>Abrir Site</string>
+   </property>
+  </action>
+  <action name="actionVisualizar_Imagem">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icon/1470509447_32.png</normaloff>:/icon/1470509447_32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Visualizar Imagem</string>
+   </property>
+  </action>
+  <action name="actionData_Atual">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icon/1470509472_access-time.png</normaloff>:/icon/1470509472_access-time.png</iconset>
+   </property>
+   <property name="text">
+    <string>Data Atual</string>
+   </property>
+  </action>
+  <action name="actionSair">
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/icon/1470509373_common-logout-signout-exit-glyph.png</normaloff>:/icon/1470509373_common-logout-signout-exit-glyph.png</iconset>
+   </property>
+   <property name="text">
+    <string>Sair</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
+ <connections/>
+</ui>

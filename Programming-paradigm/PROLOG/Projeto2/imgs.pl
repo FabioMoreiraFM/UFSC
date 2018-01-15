@@ -1,0 +1,2 @@
+:- dynamic img/8.
+
