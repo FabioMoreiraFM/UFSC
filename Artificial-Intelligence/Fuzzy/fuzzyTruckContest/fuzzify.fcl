@@ -1,0 +1,90 @@
+FUNCTION_BLOCK angle
+
+VAR_INPUT
+	coord_x: REAL;
+	coord_y: REAL;
+	angleTruck: REAL;
+END_VAR
+
+VAR_OUTPUT
+	virarVolante: REAL;
+END_VAR
+
+FUZZIFY coord_x
+	TERM ntLonge := (0, 1) (0.5, 0);
+	TERM proximo := (0.34, 0) (0.5, 1) (0.6,0);
+	TERM longe := (0.5, 0) (1, 1);
+END_FUZZIFY
+
+FUZZIFY coord_y
+	TERM ntLonge := (0.3, 0) (0.5, 1) (0.7, 0);
+	TERM proximo := (0.6, 0) (1, 1);
+	TERM longe := (0, 1) (0.4, 0);
+END_FUZZIFY
+
+FUZZIFY angleTruck
+	TERM longeD := (30, 1) (80, 0); 
+	TERM ntLongeD := (70, 0) (80,1) (89, 0);
+	TERM longeE := (100,0) (120, 1);
+	TERM ntLongeE := (93, 0) (97, 1) (108, 0);
+	TERM proximo := (89, 0) (90, 1) (91, 0);
+END_FUZZIFY
+
+DEFUZZIFY virarVolante
+	TERM vmE := (-1, 0) (-0.6, 1) (-0.1,0);
+	TERM vpE := (-0.4, 0) (-0.2, 1) (0, 0);
+	TERM vmD := (0.1, 0) (0.6, 1) (1,0);
+	TERM vmpE := (-0.2, 0) (0, 1) (0.01,0);
+	TERM vmpD := (-0.0009,0) (0, 1) (0.2, 0) (0.21,0);
+	TERM vpD := (0, 0) (0.2, 1) (0.32, 0);
+	TERM m := (-0.001, 0) (0, 1) (0.001, 0);
+	TERM vmmD := (0.95, 0) (1, 1);
+	TERM vmmE := (-1, 1) (-0.9,0); 
+	METHOD : COG;
+	DEFAULT := 0;
+END_DEFUZZIFY
+
+RULEBLOCK regrasVirarVolante
+	AND : MIN;
+	ACT : MIN;
+	ACCU : MAX;
+
+	RULE 1: IF coord_x IS proximo AND coord_y IS proximo AND angleTruck IS proximo THEN virarVolante IS m;
+	RULE 2: IF coord_x IS proximo AND coord_y IS proximo AND angleTruck IS longeE THEN virarVolante IS vmE;
+	RULE 3: IF coord_x IS proximo AND coord_y IS proximo AND angleTruck IS longeD THEN virarVolante IS vmD;
+	RULE 4: IF coord_x IS proximo AND coord_y IS proximo AND angleTruck IS ntLongeE THEN virarVolante IS vmpE;
+	RULE 5: IF coord_x IS proximo AND coord_y IS proximo AND angleTruck IS ntLongeD THEN virarVolante IS vpD;
+	
+	RULE 6: IF coord_x IS ntLonge AND coord_y IS ntLonge AND angleTruck IS longeD THEN virarVolante IS vmD;
+	RULE 7: IF coord_x IS ntLonge AND coord_y IS ntLonge AND angleTruck IS longeE THEN virarVolante IS m;
+	RULE 8: IF coord_x IS ntLonge AND coord_y IS ntLonge AND angleTruck IS ntLongeD THEN virarVolante IS vmD;
+	RULE 9: IF coord_x IS ntLonge AND coord_y IS ntLonge AND angleTruck IS proximo THEN virarVolante IS m;
+	RULE 10: IF coord_x IS ntLonge AND coord_y IS ntLonge AND angleTruck IS ntLongeE THEN virarVolante IS m;
+	
+	RULE 11: IF coord_x IS ntLonge AND coord_y IS longe AND angleTruck IS longeE THEN virarVolante IS m;
+	RULE 12: IF coord_x IS ntLonge AND coord_y IS longe AND angleTruck IS ntLongeE THEN virarVolante IS vmmD;
+	RULE 13: IF coord_x IS ntLonge AND coord_y IS longe AND angleTruck IS longeD THEN virarVolante IS vmmD;
+	RULE 14: IF coord_x IS ntLonge AND coord_y IS longe AND angleTruck IS ntLongeD THEN virarVolante IS vpD;
+	RULE 15: IF coord_x IS ntLonge AND coord_y IS longe AND angleTruck IS proximo THEN virarVolante IS m;
+	
+	RULE 16: IF coord_x IS ntLonge AND coord_y IS proximo AND angleTruck IS longeE THEN virarVolante IS vpD;
+	RULE 17: IF coord_x IS ntLonge AND coord_y IS proximo AND angleTruck IS ntLongeE THEN virarVolante IS vmD;
+		
+	RULE 18: IF coord_x IS proximo AND coord_y IS ntLonge AND angleTruck IS longeE THEN virarVolante IS vmE;
+	RULE 19: IF coord_x IS proximo AND coord_y IS ntLonge AND angleTruck IS ntLongeE THEN virarVolante IS vmpE;
+	RULE 20: IF coord_x IS proximo AND coord_y IS ntLonge AND angleTruck IS longeD THEN virarVolante IS vmD;
+	RULE 21: IF coord_x IS proximo AND coord_y IS ntLonge AND angleTruck IS ntLongeD THEN virarVolante IS vmpD;
+	RULE 22: IF coord_x IS proximo AND coord_y IS ntLonge AND angleTruck IS proximo THEN virarVolante IS m;
+	
+	RULE 23: IF coord_x IS proximo AND coord_y IS longe AND angleTruck IS longeD THEN virarVolante IS vmmD;
+	RULE 24: IF coord_x IS proximo AND coord_y IS longe AND angleTruck IS longeE THEN virarVolante IS vmmE;
+	RULE 25: IF coord_x IS proximo AND coord_y IS longe AND angleTruck IS ntLongeD THEN virarVolante IS vpD;
+	
+	RULE 26: IF coord_x IS longe AND coord_y IS longe AND angleTruck IS longeD THEN virarVolante IS vpD;
+	
+	RULE 27: IF coord_x IS longe AND coord_y IS ntLonge AND angleTruck IS longeD THEN virarVolante IS vpD;
+	
+	RULE 28: IF coord_x IS longe AND coord_y IS proximo AND angleTruck IS longeE THEN virarVolante IS vpE;
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK

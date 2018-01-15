@@ -1,0 +1,57 @@
+FUNCTION_BLOCK angle
+
+VAR_INPUT
+	coord_x: REAL;
+	coord_y: REAL;
+	angleTruck: REAL;
+END_VAR
+
+VAR_OUTPUT
+	virarVolante: REAL;
+END_VAR
+
+FUZZIFY coord_x
+	TERM ntLonge := (0, 1) (0.5, 0);
+	TERM proximo := (0.34, 0) (0.5, 1) (0.6,0);
+	TERM longe := (0.5, 0) (1, 1);
+END_FUZZIFY
+
+FUZZIFY coord_y
+	TERM ntLonge := (0.3, 0) (0.5, 1) (0.7, 0);
+	TERM proximo := (0.6, 0) (1, 1);
+	TERM longe := (0, 1) (0.4, 0);
+END_FUZZIFY
+
+FUZZIFY angleTruck
+	TERM longe := (70, 1) (85, 0) (93,0) (100, 1);
+	TERM proximo := (85, 0) (90, 1) (95,0);
+	TERM ntLonge := (80,1) (90,0) (95, 1);
+END_FUZZIFY
+
+DEFUZZIFY virarVolante
+	TERM ve := (-1, 1) (0, 0);
+	TERM vd := (0, 0) (1, 1);
+	TERM m := (-0.3, 0) (0, 1) (0.3, 0);
+	METHOD : COG;
+	DEFAULT := 0;
+END_DEFUZZIFY
+
+RULEBLOCK regrasVirarVolante
+	AND : MIN;
+	ACT : MIN;
+	ACCU : MAX;
+
+	RULE 1: IF coord_x IS longe AND coord_y IS ntLonge THEN virarVolante IS ve;
+	RULE 2: IF coord_x IS longe AND coord_y IS proximo THEN virarVolante IS ve;
+	RULE 3: IF coord_x IS proximo AND coord_y IS proximo AND angleTruck IS longe THEN virarVolante IS ve; // Regra Importante
+	RULE 4: IF coord_x IS proximo AND coord_y IS proximo THEN virarVolante IS m; // Complementa RULE 3
+	RULE 5: IF coord_x IS proximo AND coord_y IS ntLonge AND angleTruck IS ntLonge THEN virarVolante IS ve; // Regra Importante
+	RULE 6: IF coord_y IS ntLonge AND coord_x IS ntLonge THEN virarVolante IS m; // Regra Importante
+	RULE 7: IF coord_y IS longe AND coord_x IS ntLonge THEN virarVolante IS vd; // Regra Importante - Faz a curva
+	RULE 8: IF coord_y IS proximo AND coord_x IS longe THEN virarVolante IS ve;
+	RULE 9: IF coord_x IS proximo AND coord_y IS longe THEN virarVolante IS m;
+	RULE 10: IF coord_x IS proximo AND coord_y IS ntLonge AND angleTruck IS proximo THEN virarVolante IS m;
+	
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK

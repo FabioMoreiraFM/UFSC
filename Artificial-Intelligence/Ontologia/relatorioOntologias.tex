@@ -1,0 +1,112 @@
+\documentclass[a4paper,12pt]{article}
+%\documentclass[a4paper,10pt]{scrartcl}
+
+\usepackage[utf8]{inputenc}
+\usepackage{tablefootnote}
+\usepackage[brazil]{babel}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{enumitem}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\newtheorem{theorem}{Teorema}
+\usepackage{sectsty} % tamanho da fonte
+\usepackage[font=small]{caption}
+\usepackage{mathrsfs}             
+
+\sectionfont{\fontsize{12}{15}\selectfont} % Tamanho da fonte das seções = 12
+\subsectionfont{\fontsize{12}{15}\selectfont}
+\linespread{1.5}
+\usepackage[margin=2cm]{geometry}
+
+
+\title{Representação de Conhecimento e Raciocínio}
+\author{Fabio Moreira \and Marcello Klingelfus Junior}
+\date{26 de Setembro de 2017}
+
+
+\begin{document}
+\maketitle
+
+\begin{itemize}
+\item Parte 1. Pesquisa teórica.
+
+a) Diferença entre os axiomas \textbf{subClassOf} e \textbf{equivalentTo}: Se uma classe C1 é subclasse de C2, isso significa que C1 
+herdará todas as características de C2, mas C2 não possuirá as características de C1, a menos que outro axioma defina o contrário. Esse axioma está
+mais ligado à especialização e hierarquia de classes. Se uma classe C1 é equivalente a uma classe C2, isso significa que C1 e C2 são iguais, ou seja,
+possuem as mesmas características, propriedades, etc.. Para este trabalho, a classe Filha é subClassOf de Child e possui uma característica (likes only Mae).
+Por sua vez, a classe Murderer é EquivalentTo de (Pessoa and aloneToKill min 1 Pessoa)
+
+b) Comparar \textbf{lógica descritiva} e \textbf{lógica de 1ª ordem}. Apresentar exemplos do que é possível
+expressar com lógica de 1ª ordem que não é possível com lógica descritiva: Não é possível utilizar a lógica descritiva para fazer coisas que requerem
+mais de duas variáveis. Por exemplo, não é possível descrever a classe de pessoas que gostam de alguém que gosta de outra pessoa que gosta da pessoa original.
+O que seria fácil para a lógica de 1ª ordem, representado a seguir. $ \forall x.(C(X) \leftrightarrow  \exists y.(likes(x,y) \wedge \exists z.(likes(y,z) \wedge likes(z,x))))$ \footnote{Exemplo retirado de: https://stackoverflow.com/questions/24783523/what-is-supported-in-first-order-logics-which-is-not-supported-in-description-lo}
+
+\end{itemize}
+
+\begin{itemize}
+ \item Parte 2. Descrição do modelo conceitual.
+ 
+ O domínio escolhido para este trabalho consiste no jogo ``Travessia do Rio'', famoso jogo de lógica.
+ Há inúmeras versões desse jogo e nossa escolha foi baseada na diversidade de personagens
+ presentes em cada versão. O objetivo desse jogo é atravessar todas as nove pessoas de um lado da margem de um rio, 
+ através de um barco que comporta até duas pessoas, até a outra margem. Os indivíduos são:
+ Um pai e uma mãe com três filhos e três filhas, um policial e um presidiário. As regras são:
+ O pai nunca pode ficar sozinho com as filhas sem a mãe, a mãe nunca pode ficar sozinha
+ com os filhos sem o pai, o presidiário não pode ficar sozinho com alguém da família.
+ Caso uma dessas regras seja violada haverá um assassinato.
+ 
+\end{itemize}
+
+
+\begin{itemize}
+ \item Exemplos de funcionamento da ontologia
+ 
+ Os exemplos abaixo demonstram o funcionamento da ontologia. A cada exemplo, é apresentado
+ o comportamento da ontologia naquela configuração do jogo.
+\end{itemize}
+
+
+\begin{figure}[!thb]
+  \centering
+  \subfloat[Policial e presidiário na margem oeste do rio, como policial está junto do presidiário (representado pelo guarding em policial), é inferido que presidiário está sendo vigiado (beenGuarded) pelo policial.]{
+    \includegraphics[height=6cm]{img/beenGuardedPolicial}
+    \label{figure:beenGuardedPolicial}
+  }
+  \quad
+  \subfloat[Ao tentar colocar pai e filha no barco, o que significa que ambos vão para a outra margem, uma regra é violada e o pai matará a filha, inferido corretamente na ontologia (killed\_by) ]{
+    \includegraphics[height=6cm]{img/filhaKilled}
+    \label{figure:filhaKilled}
+  }
+\end{figure}
+
+\begin{figure}[!tbh]
+  \centering
+  \subfloat[Ao colocar o policial no barco, uma regra é violada e a consequência é o presidiário matar todos os membros da família naquele lado da margem.]{
+    \includegraphics[height=6cm]{img/killedBy_Presa}
+    \label{figure:killedBy_Presa}
+  }
+  \quad
+  \subfloat[Exemplo de query para descobrir, naquele momento, quem matou alguma criança.]{
+    \includegraphics[height=6cm]{img/mariaMatando}
+    \label{figure:mariaMatando}
+  }
+\end{figure}
+\begin{figure}[!hbt]
+  \centering
+  \subfloat[Exemplo de erro na ontologia ao tentar definir definir que o presidiário pode matar o policial. Um presidiário não pode matar um policial.]{
+    \includegraphics[height=6cm]{img/naoPodeMatarPolicial}
+    \label{figure:naoPodeMatarPolicial}
+  }
+  \quad
+  \subfloat[Exemplo de query para retornar os filhos de alguém que é pai.]{
+    \includegraphics[height=6cm]{img/dlQueryFilhos}
+    \label{figure:dlQueryFilhos}
+  }
+ \caption{Exemplos do funcionamento da Ontologia}  
+  \label{fig:roc}
+\end{figure}
+
+\end{document}
+
+
